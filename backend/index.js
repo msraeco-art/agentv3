@@ -40,4 +40,5 @@ app.post("/agent", async (req, res) => {
   res.json({ role: "assistant", content: output });
 });
 
-app.listen(3001, () => console.log("V3 Agent running on 3001"));
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, '0.0.0.0', () => console.log(`V3 Agent running on port ${PORT}`));
