@@ -2,7 +2,6 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { managerAgent } from "./agents/manager.js";
 import { plannerAgent } from "./agents/planner.js";
 import { researcherAgent } from "./agents/researcher.js";
 import { coderAgent } from "./agents/coder.js";
