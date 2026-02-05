@@ -1,11 +1,18 @@
 
 import OpenAI from "openai";
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+let openai;
+function getOpenAI() {
+  if (!openai) {
+    openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  }
+  return openai;
+}
 
 const store = [];
 
 export async function storeMemory(workspace, text) {
-  const e = await openai.embeddings.create({
+  const e = await getOpenAI().embeddings.create({
     model: "text-embedding-3-small",
     input: text
   });
@@ -18,7 +25,7 @@ function cosine(a,b){
 
 export async function searchMemory(workspace, query) {
   if (!store.length) return "";
-  const e = await openai.embeddings.create({
+  const e = await getOpenAI().embeddings.create({
     model: "text-embedding-3-small",
     input: query
   });

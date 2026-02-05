@@ -1,9 +1,16 @@
 
 import OpenAI from "openai";
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+let openai;
+function getOpenAI() {
+  if (!openai) {
+    openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  }
+  return openai;
+}
 
 export async function coderAgent(task) {
-  const r = await openai.chat.completions.create({
+  const r = await getOpenAI().chat.completions.create({
     model: "gpt-4.1-mini",
     messages: [
       { role: "system", content: "You write correct production code." },
