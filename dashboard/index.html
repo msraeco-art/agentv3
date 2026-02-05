@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Agent Workspace Dashboard</title>
+</head>
+<body>
+<h1>Workspace Dashboard</h1>
+<input id="workspace" placeholder="workspace name" value="default"/>
+<br/><br/>
+<textarea id="msg" rows="4" cols="50"></textarea><br/>
+<button onclick="send()">Run Agent</button>
+<pre id="out"></pre>
+
+<script>
+async function send() {
+  const msg = document.getElementById("msg").value;
+  const workspace = document.getElementById("workspace").value;
+  const r = await fetch("http://localhost:3001/agent", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ userMessage: msg, workspace })
+  });
+  const j = await r.json();
+  document.getElementById("out").textContent = j.content;
+}
+</script>
+</body>
+</html>
